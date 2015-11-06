@@ -1,11 +1,26 @@
-<h1>Hi {{vm.user.firstName}}!</h1>
-<p>You're logged in!!</p>
-<h3>All registered users:</h3>
-<ul>
-    <li ng-repeat="user in vm.allUsers">
-        {{user.username}} ({{user.firstName}} {{user.lastName}})
-        - <a href="#" ng-click="vm.deleteUser(user.id)">Delete</a>
-    </li>
-</ul>
+<h3>Hi, {{tm.user.firstName}}!</h3>
+<h4>Your tasks:</h4>
+
+<table class="table table-sorted">
+<tr>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Priority</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+<tr ng-repeat="task in tm.allTasks">
+        
+    <td><a href="#/task">{{task.title}}</a></td>
+    <td>{{task.date}}</td>
+    <td>{{task.priority}}</td>
+    <td>{{task.status}}</td>
+    <td><a href="#/" ng-click="tm.deleteTask(task.id)">delete</a></td>
+</tr>
+</table>
+
 <p>&nbsp;</p>
-<p><a href="#/login" class="btn btn-primary">Logout</a></p>
+<p>
+	<a href="#/add-task" class="btn btn-primary">Add task</a>
+	<a href="#/login" class="btn btn-primary">Logout</a>
+</p>

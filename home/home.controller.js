@@ -5,32 +5,44 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['UserService', '$rootScope'];
-    function HomeController(UserService, $rootScope) {
-        var vm = this;
+    HomeController.$inject = ['UserService', 'TaskService', '$rootScope'];
+    function HomeController(UserService, TaskService, $rootScope) {
+        var tm = this;
 
-        vm.user = null;
-        vm.allUsers = [];
-        vm.deleteUser = deleteUser;
+        tm.user = null;
+        tm.allUsers = [];
+        tm.deleteUser = deleteUser;
+
+	tm.allTasks = [];
+	tm.deleteTask = deleteTask;
 
         initController();
 
         function initController() {
             loadCurrentUser();
             loadAllUsers();
+
+	    loadAllTasks();
         }
 
         function loadCurrentUser() {
             UserService.GetByUsername($rootScope.globals.currentUser.username)
                 .then(function (user) {
-                    vm.user = user;
+                    tm.user = user;
                 });
         }
 
         function loadAllUsers() {
             UserService.GetAll()
                 .then(function (users) {
-                    vm.allUsers = users;
+                    tm.allUsers = users;
+                });
+        }
+
+        function loadAllTasks() {
+            TaskService.GetAll()
+                .then(function (tasks) {
+                    tm.allTasks = tasks;
                 });
         }
 
@@ -38,6 +50,13 @@
             UserService.Delete(id)
             .then(function () {
                 loadAllUsers();
+            });
+        }
+
+        function deleteTask(id) {
+            TaskService.Delete(id)
+            .then(function () {
+                loadAllTasks();
             });
         }
     }

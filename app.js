@@ -12,7 +12,7 @@
             .when('/', {
                 controller: 'HomeController',
                 templateUrl: 'home/home.view.html',
-                controllerAs: 'vm'
+                controllerAs: 'tm'
             })
 
             .when('/login', {
@@ -25,6 +25,12 @@
                 controller: 'RegisterController',
                 templateUrl: 'register/register.view.html',
                 controllerAs: 'vm'
+            })
+
+            .when('/add-task', {
+                controller: 'AddTaskController',
+                templateUrl: 'add-task/add-task.view.html',
+                controllerAs: 'tm'
             })
 
             .otherwise({ redirectTo: '/login' });
