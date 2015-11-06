@@ -14,6 +14,18 @@
                 templateUrl: 'home/home.view.html',
                 controllerAs: 'tm'
             })
+		
+		.when('/order/:orderBy', {
+                controller: 'HomeController',
+                templateUrl: 'home/home.view.html',
+                controllerAs: 'tm'
+            })
+	
+		.when('/filter/:filterBy', {
+                controller: 'HomeController',
+                templateUrl: 'home/home.view.html',
+                controllerAs: 'tm'
+            })
 
             .when('/login', {
                 controller: 'LoginController',
@@ -28,8 +40,14 @@
             })
 
             .when('/add-task', {
-                controller: 'AddTaskController',
-                templateUrl: 'add-task/add-task.view.html',
+                controller: 'TaskController',
+                templateUrl: 'task/add-task.view.html',
+                controllerAs: 'tm'
+            })
+
+            .when('/task/:taskId', {
+                controller: 'TaskController',
+                templateUrl: 'task/task.view.html',
                 controllerAs: 'tm'
             })
 

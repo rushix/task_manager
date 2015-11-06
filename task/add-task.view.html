@@ -1,0 +1,59 @@
+<div class="col-md-6 col-md-offset-3">
+    <h2>Add task</h2>
+    <div ng-show="tm.error" class="alert alert-danger">{{tm.error}}</div>
+    <form name="form" ng-submit="tm.addTask()" role="form">
+        <div class="form-group" ng-class="{ 'has-error': form.title.$dirty && form.title.$error.required }">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control" ng-model="tm.task.title" required />
+            <span ng-show="form.title.$dirty && form.title.$error.required" class="help-block">Title name is required</span>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.description.$dirty && form.description.$error.required }">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" class="form-control" ng-model="tm.task.description" required></textarea>
+            <span ng-show="form.description.$dirty && form.description.$error.required" class="help-block">Description is required</span>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.date.$dirty && form.date.$error.required }">
+            <label for="date">Date</label>
+            <input type="date" date-picker name="date" id="date" class="form-control" ng-model="tm.task.date" required />
+            <span ng-show="form.date.$dirty && form.date.$error.required" class="help-block">Date is required</span>
+        </div>
+	<div class="form-group">
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority" class="form-control" ng-model="tm.task.priority" ng-options="c.code as c.name for c in tm.priorities" required>
+		<option value="">set priority</option>
+            </select>
+        </div>
+	<div class="form-group">
+            <label for="approxTime">Approx time</label>
+            <select name="approxTime" id="approxTime" class="form-control" ng-model="tm.task.approxTime" ng-options="c.code as c.name for c in tm.periods" required>
+		<option value="">set period</option>
+            </select>
+        </div>
+	<div class="form-group">
+            <label for="exactTime">Exact time</label>
+            <select name="exactTime" id="exactTime" class="form-control" ng-model="tm.task.exactTime" ng-options="c.code as c.name for c in tm.periods" required>
+		<option value="">set period</option>
+            </select>
+        </div>
+	<div class="form-group">
+            <label for="status">Status</label>
+            <select name="status" id="status" class="form-control" ng-model="tm.task.status" ng-options="c.code as c.name for c in tm.statuses" required>
+		<option value="">set status</option>
+            </select>
+        </div>
+	<div class="form-group">
+            <label for="username">Assignee</label>
+            <select name="username" id="username" class="form-control" ng-model="tm.task.username" ng-options="c.id as c.username for c in tm.allUsers" required>
+		<option value="">choose user</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" ng-disabled="form.$invalid || tm.dataLoading" class="btn btn-primary">Create</button>
+            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a href="#/" class="btn btn-link">Cancel</a>
+            <a href="#/login" class="btn btn-link">Logout</a>
+        </div>
+    </form>
+</div>
+

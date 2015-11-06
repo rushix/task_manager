@@ -13,6 +13,7 @@
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByTitle = GetByTitle;
+	service.GetByUsername = GetByUsername;
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
@@ -29,9 +30,18 @@
             var deferred = $q.defer();
             var filtered = $filter('filter')(getTasks(), { id: id });
             var task = filtered.length ? filtered[0] : null;
-            deferred.resolve(user);
+            deferred.resolve(task);
             return deferred.promise;
         }
+
+        function GetByUsername(username) {
+            var deferred = $q.defer();
+            var filtered = $filter('filter')(getTasks(), { username: username });
+            var tasks = filtered.length ? filtered : null;
+            deferred.resolve(tasks);
+            return deferred.promise;
+        }
+
 
         function GetByTitle(title) {
             var deferred = $q.defer();
@@ -46,6 +56,9 @@
 
             // simulate api call with $timeout
             $timeout(function () {
+
+		//task.username = parseInt(task.username.slice(7));
+
                 GetByTitle(task.title)
                     .then(function (duplicateTask) {
                         if (duplicateTask !== null) {
@@ -80,7 +93,7 @@
                 }
             }
             setTasks(tasks);
-            deferred.resolve();
+            deferred.resolve({ success: true});
 
             return deferred.promise;
         }
@@ -97,7 +110,7 @@
                 }
             }
             setTasks(tasks);
-            deferred.resolve();
+            deferred.resolve({ success: true });
 
             return deferred.promise;
         }

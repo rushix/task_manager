@@ -5,8 +5,8 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['UserService', 'TaskService', '$rootScope'];
-    function HomeController(UserService, TaskService, $rootScope) {
+    HomeController.$inject = ['UserService', 'TaskService', '$rootScope', '$filter', '$routeParams'];
+    function HomeController(UserService, TaskService, $rootScope, $filter, $routeParams) {
         var tm = this;
 
         tm.user = null;
@@ -16,19 +16,37 @@
 	tm.allTasks = [];
 	tm.deleteTask = deleteTask;
 
+        function loadAllTasks(id) {
+
+	    TaskService.GetByUsername(id)
+                .then(function (tasks) {
+			
+		    if (typeof $routeParams.orderBy !== "undefined") {
+		    	tm.allTasks =  $filter('orderBy')(tasks, $routeParams.orderBy);
+		    } else if (typeof $routeParams.filterBy !== "undefined") {
+			console.log($routeParams.filterBy);
+			tm.allTasks = $filter('filter')(tasks, { status: $routeParams.filterBy });
+		    } else {
+			tm.allTasks = tasks;	
+		    }
+                });
+        }
+
+
         initController();
 
         function initController() {
             loadCurrentUser();
             loadAllUsers();
 
-	    loadAllTasks();
         }
 
         function loadCurrentUser() {
             UserService.GetByUsername($rootScope.globals.currentUser.username)
                 .then(function (user) {
                     tm.user = user;
+
+	    	    tm.allTasks = loadAllTasks(user.id);
                 });
         }
 
@@ -38,14 +56,6 @@
                     tm.allUsers = users;
                 });
         }
-
-        function loadAllTasks() {
-            TaskService.GetAll()
-                .then(function (tasks) {
-                    tm.allTasks = tasks;
-                });
-        }
-
         function deleteUser(id) {
             UserService.Delete(id)
             .then(function () {

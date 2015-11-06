@@ -3,21 +3,28 @@
 
 <table class="table table-sorted">
 <tr>
-    <th>Title</th>
-    <th>Date</th>
-    <th>Priority</th>
-    <th>Status</th>
+    <th><a href="#/order/title">Title</a></th>
+    <th><a href="#/order/date">Date</a></th>
+    <th><a href="#/order/priority">Priority</a></th>
+    <th><a href="#/order/status">Status</a></th>
     <th>Action</th>
 </tr>
 <tr ng-repeat="task in tm.allTasks">
         
-    <td><a href="#/task">{{task.title}}</a></td>
-    <td>{{task.date}}</td>
+    <td><a href="#/task/{{task.id}}">{{task.title}}</a></td>
+    <td>{{task.date | date:'dd.MM.yyyy'}}</td>
     <td>{{task.priority}}</td>
     <td>{{task.status}}</td>
     <td><a href="#/" ng-click="tm.deleteTask(task.id)">delete</a></td>
 </tr>
 </table>
+
+<p>Filter by status: 
+	<a class="btn btn-warning" href="#/filter/open">open</a> 
+	<a class="btn btn-warning" href="#/filter/in%20progress">in progress</a>
+	<a class="btn btn-warning" href="#/filter/closed">closed</a>
+	<a class="btn btn-warning" href="#/">none</a>
+</p>
 
 <p>&nbsp;</p>
 <p>
